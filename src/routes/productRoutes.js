@@ -1,17 +1,15 @@
 const express = require('express');
 const router = express.Router();
+const protect = require('../middleware/auth'); // Asegúrate de que la ruta al archivo sea correcta
 const { getProducts, createProduct, updateProduct, deleteProduct } = require('../controllers/productController');
-const protect = require('../middleware/auth.js');
 
-// Todas las rutas de productos requieren protección
-router.use(protect);
-
+// CORRECTO: Se pasa 'protect' como referencia, SIN paréntesis
 router.route('/')
-    .get(getProducts)
-    .post(createProduct);
+    .get(protect, getProducts)
+    .post(protect, createProduct);
 
 router.route('/:id')
-    .put(updateProduct)
-    .delete(deleteProduct);
+    .put(protect, updateProduct)
+    .delete(protect, deleteProduct);
 
 module.exports = router;

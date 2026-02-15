@@ -1,20 +1,18 @@
 const jwt = require('jsonwebtoken');
 
-const protect = (req, res, next) => {
+const protect = (req, res, next) => { // <-- Asegúrate de que 'next' esté aquí
     let token;
 
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
         try {
-            // Obtener el token del header "Bearer <token>"
             token = req.headers.authorization.split(' ')[1];
-
-            // Verificar token
             const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-            // Añadir el ID del usuario al objeto request para usarlo en los controladores
+            
+            // Guardamos el ID del usuario en el request
             req.user = decoded.id;
 
-            next();
+            // ¡IMPORTANTE! Llamar a next() para que pase al controlador
+            return next(); 
         } catch (error) {
             return res.status(401).json({ message: 'No autorizado, token fallido' });
         }
