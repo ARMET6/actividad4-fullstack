@@ -1,62 +1,57 @@
-# Actividad IV Full Stack - Gestion de Productos
+Sistema de Gestion de Productos Full Stack
+Este proyecto consiste en una API REST desarrollada con Node.js y Express, integrada con una base de datos NoSQL (MongoDB) y una interfaz de usuario construida con Bootstrap. El sistema incluye autenticacion mediante JSON Web Tokens (JWT) y pruebas unitarias automatizadas.
 
-Esta aplicacion es una plataforma web para la gestion de productos que integra un sistema CRUD completo. La seguridad esta gestionada mediante autenticacion JWT y la persistencia de datos se realiza en MongoDB. Este proyecto forma parte del programa Full Stack de la Universidad Tecmilenio.
+Requisitos Previos
+Para ejecutar este proyecto localmente, es necesario contar con:
 
-## Tecnologias Utilizadas
+Node.js (Version 14 o superior)
 
-* Backend: Node.js y Express.js
-* Base de Datos: MongoDB Atlas utilizando la libreria Mongoose
-* Seguridad: JSON Web Tokens (JWT) y cifrado de contrasenas con Bcryptjs
-* Pruebas: Jest y Supertest para pruebas unitarias automatizadas
-* CI/CD: Pipeline configurado en GitHub Actions
-* Despliegue: Plataforma SaaS Vercel
+MongoDB Community Server y MongoDB Compass
 
-## Instalacion y Configuracion Local
+Un editor de codigo (recomendado Visual Studio Code)
 
-Siga estos pasos para ejecutar el proyecto en un entorno local utilizando Visual Studio Code:
+Instalacion
+Clonar el repositorio desde GitHub:
+git clone 
 
-1. Clonar el repositorio:
-   git clone https://github.com/ARMET6/actividad4-fullstack.git
-   cd actividad4-fullstack
+Acceder al directorio del proyecto:
+cd actividad4-fullstack
 
-2. Instalar las dependencias necesarias:
-   npm install
+Instalar las dependencias necesarias:
+npm install
 
-3. Configurar las variables de entorno:
-   Cree un archivo llamado .env en la raiz del directorio con el siguiente contenido:
-   PORT=3000
-   MONGO_URI=su_cadena_de_conexion_mongodb
-   JWT_SECRET=su_clave_secreta_jwt
+Configuracion de Variables de Entorno
+Crear un archivo llamado .env en la raiz del proyecto y configurar las siguientes variables:
 
-4. Iniciar la aplicacion en modo desarrollo:
-   npm run dev
+PORT=3000
+MONGO_URI=mongodb://localhost:27017/actividad4_fullstack
+JWT_SECRET=clave_secreta_de_prueba
 
-## Pruebas Unitarias
+Nota: La variable MONGO_URI debe apuntar a la instancia local de MongoDB para asegurar la persistencia en entornos con restricciones de red.
 
-Para validar el correcto funcionamiento de los controladores y la integridad de las rutas, ejecute el siguiente comando:
+Ejecucion del Proyecto
+Existen dos comandos principales para iniciar la aplicacion:
+
+Modo de desarrollo (con reinicio automatico):
+npm run dev
+
+Modo de produccion:
+npm start
+
+Una vez iniciado el servidor, la aplicacion sera accesible en: http://localhost:3000
+
+Guia de Pruebas Locales
+Para validar el funcionamiento completo del sistema, siga estos pasos:
+
+Registro: Ingrese un nombre de usuario y contraseña en la seccion de Acceso y presione el boton Registrar.
+
+Autenticacion: Introduzca las credenciales creadas y presione Login. El sistema almacenara el token JWT en memoria.
+
+Gestion de Datos: Tras el inicio de sesion, el frontend realizara una peticion autorizada a la base de datos para listar los productos en la tabla.
+
+Ejecucion de Pruebas Unitarias
+Para verificar la integridad de las rutas y la seguridad de la API, ejecute el siguiente comando:
+
 npm test
 
-## Descripcion de Endpoints
-
-### Autenticacion
-* POST /api/auth/register - Permite el registro de nuevos usuarios en la base de datos.
-* POST /api/auth/login - Valida credenciales y retorna un token JWT para acceso autorizado.
-
-### Gestion de Productos (Rutas Protegidas)
-* GET /api/products - Recupera la lista de productos asociados al usuario autenticado.
-* POST /api/products - Crea un nuevo registro de producto.
-* PUT /api/products/:id - Actualiza los datos de un producto existente validando la propiedad del recurso.
-* DELETE /api/products/:id - Elimina un producto de la base de datos.
-
-## Pipeline de CI/CD
-
-El repositorio incluye un flujo de trabajo automatizado mediante GitHub Actions. Este proceso se activa ante cada "push" a la rama principal (main), encargandose de:
-1. Instalar el entorno de ejecucion.
-2. Ejecutar las pruebas unitarias automatizadas.
-3. Desplegar la version mas reciente en la plataforma Vercel si las pruebas resultan exitosas.
-
----
-Datos del Estudiante:
-Nombre: Adrian Razo Mandujano
-ID: AL03050102
-Institucion: Universidad Tecmilenio
+Este comando activara la suite de pruebas construida con Jest y Supertest, validando el registro, inicio de sesion y acceso a rutas protegidas.
